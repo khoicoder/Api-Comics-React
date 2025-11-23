@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Badge, Card, Col, Container, Row } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import Button from 'react-bootstrap/Button';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   const [getData, setData] = useState([]);
@@ -55,11 +56,10 @@ const Home = () => {
               
 
             ) )): (
-          "Other"
-          )} </Card.Text>
+          "Other")} </Card.Text>
                 
         
-                    <Button variant="primary btn-sm"> More Detail</Button>
+                    <Button variant="primary btn-sm" as={Link} to= {`/comics/${item.slug}`}> More Detail</Button>
                   </Card.Body>
                 </Card>
               </Col>

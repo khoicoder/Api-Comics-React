@@ -1,13 +1,27 @@
 import logo from './logo.svg';
 import './App.css';
-import Home from './components/home';
+import Home from './components/Home.js';
 
+import { BrowserRouter as Router, Route,Routes } from 'react-router-dom'; // phaỉ có browserRouter as Router
+import DetailPage from './components/DetailPage.js';
 
 
 function App() {
   
   return (  
-   Home()
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home></Home>}> </Route>
+
+
+        <Route path="/comics/:slug" element={<DetailPage></DetailPage>}> </Route>
+
+      </Routes>
+    </Router>
+    
+
+
+
     
     
 
