@@ -4,6 +4,7 @@ import { Badge, Card, Col, Container, Row } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
+import Menu from './include/Menu';
 
 const Home = () => {
   const [getData, setData] = useState([]);
@@ -35,7 +36,10 @@ const Home = () => {
       <Helmet>
         <title>{getData?.data?.seoOnPage?.titleHead}</title>
       </Helmet>
-      <Container>
+      
+      <Container >
+        <Menu> </Menu>
+        
         <Row>
           {items && items.length > 0 ? (
             items.map((item, index) => (

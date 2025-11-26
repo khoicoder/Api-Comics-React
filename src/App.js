@@ -4,6 +4,7 @@ import Home from './components/Home.js';
 
 import { BrowserRouter as Router, Route,Routes } from 'react-router-dom'; // phaỉ có browserRouter as Router
 import DetailPage from './components/DetailPage.js';
+import Genre from './components/include/Genre.js';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
 
 
         <Route path="/comics/:slug" element={<DetailPage></DetailPage>}> </Route>
+        <Route path="/genre/:slug" element={<Genre></Genre>}> </Route>
 
       </Routes>
     </Router>

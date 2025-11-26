@@ -1,11 +1,33 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link } from 'react-router-dom';
 const Menu = () => {
+    const [getData, setData] = useState([]);
+    const items = getData?.data?.items;
+    
+
+
+    useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('https://otruyenapi.com/v1/api/the-loai  ');
+        setData(response.data);
+       
+        console.log(response);
+      } catch (err) {
+        
+        
+      }
+    };
+
+    fetchData();
+  }, []);
   return (
+    
     <div>
          <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
@@ -16,18 +38,21 @@ const Menu = () => {
             <Nav.Link as ={Link} to ="/">Home</Nav.Link>
             <Nav.Link as = {Link} to= "/.trending/dang-phat-hanh">Đang Phát Hành </Nav.Link>
             <Nav.Link as = {Link} to= "/.trending/hoan-thanh">Hoàn Thành </Nav.Link>
-            <Nav.Link as = {Link} to= "/.trending/sap-ra-mat">Đang Phát Hành </Nav.Link>
+            <Nav.Link as = {Link} to= "/.trending/sap-ra-mat">Sắp Ra Mắt </Nav.Link>
+
             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
+              {items && items.length > 0 ? (
+       items.map((nav, index) =>
+          (<NavDropdown.Item as={Link} to={`/genre/${nav.slug}`}>{nav.name}</NavDropdown.Item>)
+      )):
+        (<NavDropdown.Item as= {Link} to= "/"> Newest 
               </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
-              </NavDropdown.Item>
-            </NavDropdown>
+              )}
+
+              
+              
+        
+            </NavDropdown>  
           </Nav>
         </Navbar.Collapse>
       </Container>

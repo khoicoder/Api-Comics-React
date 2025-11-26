@@ -5,6 +5,7 @@ import { Link, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet'; // thằng helmet này phải import riêng  
 import ListGroup from 'react-bootstrap/ListGroup';
 import Modal from 'react-bootstrap/Modal';
+import Menu from './include/Menu';
 const DetailPage = () => {
   const {slug} = useParams();
   const [getData, setData] = useState([]);
@@ -59,6 +60,7 @@ const DetailPage = () => {
       </Helmet>
 
       <Container> 
+        <Menu> </Menu>
         <Button as={Link} to="/"> back to HomePage </Button>
         <Row> 
           <Col>
@@ -133,10 +135,12 @@ const DetailPage = () => {
           isModalOpen && ( 
             <Modal show={isModalOpen} onHide={handleClose}>
               <Modal.Header closeButton>
-              <Modal.Title>Chapter 
+                {getDataChapter?.data?.item && (
+                  <Modal.Title>Chapter 
                   {getDataChapter.data.item.chapter_name} 
                 - {getDataChapter.data.item.comic_name} 
                 </Modal.Title>
+                )}  
             </Modal.Header>
               <Modal.Body> 
                 {getDataChapter.data.item.chapter_image && 
