@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import Home from './components/Home.js'
-import DetailPage from './components/DetailPage';
+import Home from './components/homepage/Home.js';
+import DetailPage from './components/homepage/DetailPage.js';
 
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';

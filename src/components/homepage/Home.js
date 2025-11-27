@@ -1,45 +1,43 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Badge, Card, Col, Container, Row } from 'react-bootstrap';
+import { Badge, Card, Col, Container, PageItem, Row } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import Button from 'react-bootstrap/Button';
-import { Link, useParams } from 'react-router-dom';
-import Menu from './Menu';
+import { Link } from 'react-router-dom';
+import Menu from '../include/Menu';
 import Pagination from 'react-bootstrap/Pagination';
+const Home = () => {
+  const itemsPerPage = 24;
+  const [getData, setData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const items = getData?.data?.items || []; 
 
-const Genre = () => {
-    const itemsPerPage = 24;
-    const [currentPage, setCurrentPage] = useState(1);
-    const [getData, setData] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const items = getData?.data?.items || [];
-    const {slug} = useParams(); 
-    useEffect(() => {
 
+  useEffect(() => {
     const fetchData = async () => {
-        try {
-        const response = await axios.get(`https://otruyenapi.com/v1/api/the-loai/${slug}?page=${currentPage}`);
+      try {
+        const response = await axios.get(`https://otruyenapi.com/v1/api/danh-sach/truyen-moi?page=${currentPage}`);
         setData(response.data);
         setLoading(false);
         console.log(response);
-        } catch (err) {
+      } catch (err) {
         setError(err.message);
         setLoading(false);
       }
     };
 
     fetchData();
-  }, [slug,currentPage]);
+  }, [currentPage]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error : {error}</p>;
-   const paginate = (pageNumber) => {
+  const paginate = (pageNumber) => {
     setCurrentPage(pageNumber)
   }
   const totalItems =getData?.data?.params?.pagination?.totalItems || 0;
   const totalPage = Math.ceil(totalItems/itemsPerPage); // chia làm tròn
-
 
   return (
     <>
@@ -48,8 +46,8 @@ const Genre = () => {
       </Helmet>
       
       <Container >
-        <Menu></Menu>
-        <Pagination className="pagination-container" >
+        <Menu> </Menu>
+    <Pagination className="pagination-container" >
 
       <Pagination.Prev
         onClick={() => currentPage > 1 && paginate(currentPage - 1)}
@@ -77,6 +75,14 @@ const Genre = () => {
       />
 
     </Pagination>
+        <Row>
+          <Col>
+            <Card>
+              <Card.Title>{getData?.data?.seoOnPage?.titleHead}</Card.Title>
+              <Card.Body>{getData?.data?.seoOnPage?.descriptionHead}</Card.Body>
+            </Card>
+          </Col>
+        </Row>
         
         <Row>
           {items && items.length > 0 ? (
@@ -114,17 +120,11 @@ const Genre = () => {
             </Col>
           )}
         </Row>
-        <Row>
-          <Col>
-            <Card>
-              <Card.Title>{getData?.data?.seoOnPage?.titleHead}</Card.Title>
-              <Card.Body>{getData?.data?.seoOnPage?.descriptionHead}</Card.Body>
-            </Card>
-          </Col>
-        </Row>
+       
+        
       </Container>
     </>
   );
 };
 
-export default Genre;
+export default Home;

@@ -5,6 +5,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link } from 'react-router-dom';
+
 const Menu = () => {
     const [getData, setData] = useState([]);
     const items = getData?.data?.items;
@@ -36,9 +37,9 @@ const Menu = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link as ={Link} to ="/">Home</Nav.Link>
-            <Nav.Link as = {Link} to= "/.trending/dang-phat-hanh">Đang Phát Hành </Nav.Link>
-            <Nav.Link as = {Link} to= "/.trending/hoan-thanh">Hoàn Thành </Nav.Link>
-            <Nav.Link as = {Link} to= "/.trending/sap-ra-mat">Sắp Ra Mắt </Nav.Link>
+            <Nav.Link as = {Link} to= "/trending/dang-phat-hanh">Đang Phát Hành </Nav.Link>
+            <Nav.Link as = {Link} to= "/trending/hoan-thanh">Hoàn Thành </Nav.Link>
+            <Nav.Link as = {Link} to= "/trending/sap-ra-mat">Sắp Ra Mắt </Nav.Link>
 
             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               {items && items.length > 0 ? (

@@ -1,10 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
-import Home from './components/Home.js';
+import Home from './components/homepage/Home.js';
 
 import { BrowserRouter as Router, Route,Routes } from 'react-router-dom'; // phaỉ có browserRouter as Router
-import DetailPage from './components/DetailPage.js';
+import DetailPage from './components/homepage/DetailPage.js';
 import Genre from './components/include/Genre.js';
+import Trending from './components/homepage/Trending.js';
+
 
 
 function App() {
@@ -17,6 +19,7 @@ function App() {
 
         <Route path="/comics/:slug" element={<DetailPage></DetailPage>}> </Route>
         <Route path="/genre/:slug" element={<Genre></Genre>}> </Route>
+        <Route path="/trending/:slug" element={<Trending></Trending>}> </Route>
 
       </Routes>
     </Router>

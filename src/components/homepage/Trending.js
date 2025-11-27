@@ -3,30 +3,31 @@ import React, { useEffect, useState } from 'react';
 import { Badge, Card, Col, Container, Row } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import Button from 'react-bootstrap/Button';
-import { Link } from 'react-router-dom';
-import Menu from './include/Menu';
+import { Link, useParams } from 'react-router-dom';
+import Menu from '../include/Menu'
 
-const Home = () => {
-  const [getData, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const items = getData?.data?.items || [];
+const Trending = () => {
+    const [getData, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const items = getData?.data?.items || [];
+    const {slug} = useParams(); 
+    useEffect(() => {
 
-  useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await axios.get('https://otruyenapi.com/v1/api/home');
+        try {
+        const response = await axios.get(`https://otruyenapi.com/v1/api/danh-sach/${slug}`);
         setData(response.data);
         setLoading(false);
         console.log(response);
-      } catch (err) {
+        } catch (err) {
         setError(err.message);
         setLoading(false);
       }
     };
 
     fetchData();
-  }, []);
+  }, [slug]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error : {error}</p>;
@@ -38,7 +39,8 @@ const Home = () => {
       </Helmet>
       
       <Container >
-        <Menu> </Menu>
+        <Menu></Menu>
+        
         
         <Row>
           {items && items.length > 0 ? (
@@ -89,4 +91,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Trending;

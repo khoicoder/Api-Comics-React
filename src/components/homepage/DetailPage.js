@@ -5,7 +5,7 @@ import { Link, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet'; // thằng helmet này phải import riêng  
 import ListGroup from 'react-bootstrap/ListGroup';
 import Modal from 'react-bootstrap/Modal';
-import Menu from './include/Menu';
+import Menu from '../include/Menu';
 const DetailPage = () => {
   const {slug} = useParams();
   const [getData, setData] = useState([]);
