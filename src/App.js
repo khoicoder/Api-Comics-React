@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route,Routes } from 'react-router-dom'; // pha
 import DetailPage from './components/homepage/DetailPage.js';
 import Genre from './components/include/Genre.js';
 import Trending from './components/homepage/Trending.js';
+import Search from './components/homepage/Search.js';
 
 
 
@@ -20,6 +21,7 @@ function App() {
         <Route path="/comics/:slug" element={<DetailPage></DetailPage>}> </Route>
         <Route path="/genre/:slug" element={<Genre></Genre>}> </Route>
         <Route path="/trending/:slug" element={<Trending></Trending>}> </Route>
+        <Route path="/search" element={<Search></Search>}> </Route>
 
       </Routes>
     </Router>

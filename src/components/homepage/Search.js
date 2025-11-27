@@ -3,24 +3,25 @@ import React, { useEffect, useState } from 'react';
 import { Badge, Card, Col, Container, PageItem, Row } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import Button from 'react-bootstrap/Button';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import Menu from '../include/Menu';
 import Pagination from 'react-bootstrap/Pagination';
-const Home = () => {
- 
-
-  const itemsPerPage = 24;
-  const [getData, setData] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const items = getData?.data?.items || []; 
+const Search = () => {
+    
+    const [SearchParams] = useSearchParams();
+    const querry = SearchParams.get("querry");
+    const itemsPerPage = 24;
+    const [getData, setData] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const items = getData?.data?.items || []; 
 
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`https://otruyenapi.com/v1/api/danh-sach/truyen-moi?page=${currentPage}`);
+        const response = await axios.get(`https://otruyenapi.com/v1/api/tim-kiem?keyword=${querry}&page=${currentPage}`);
         setData(response.data);
         setLoading(false);
         console.log(response);
@@ -31,7 +32,7 @@ const Home = () => {
     };
 
     fetchData();
-  }, [currentPage]);
+  }, [querry,currentPage]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error : {error}</p>;
@@ -40,6 +41,7 @@ const Home = () => {
   }
   const totalItems =getData?.data?.params?.pagination?.totalItems || 0;
   const totalPage = Math.ceil(totalItems/itemsPerPage); // chia làm tròn
+
 
   return (
     <>
@@ -80,6 +82,8 @@ const Home = () => {
         <Row>
           <Col>
             <Card>
+            
+              <Card.Title>keyword Search :{querry}</Card.Title>
               <Card.Title>{getData?.data?.seoOnPage?.titleHead}</Card.Title>
               <Card.Body>{getData?.data?.seoOnPage?.descriptionHead}</Card.Body>
             </Card>
@@ -129,4 +133,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Search;
